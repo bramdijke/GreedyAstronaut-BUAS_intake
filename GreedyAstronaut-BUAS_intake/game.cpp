@@ -8,10 +8,11 @@
 
 namespace Tmpl8
 {
-	Sprite player(new Surface("assets/spaceship.png"), 1);
+	int screenX = ScreenWidth, screenY = ScreenHeight; // Get screen sizes
+	int px = screenX / 2 - 18, py = screenY / 2 - 18; // Place player in center of screen
+	
+	Sprite player(new Surface("assets/spaceship.tga"), 4);
 	Surface spaceBackground("assets/space_background.png");
-	int screenX = ScreenWidth, screenY = ScreenHeight;
-	int px = screenX / 2 - 18, py = screenY / 2 - 18; 
 
 	void Game::Init()
 	{
@@ -24,13 +25,12 @@ namespace Tmpl8
 	void Game::Tick(float deltaTime)
 	{
 		screen->Clear(0);
-		// Draw background image
-		spaceBackground.CopyTo(screen, 0, 0);
-		player.Draw(screen, px, py);
+		spaceBackground.CopyTo(screen, 0, 0); // Render background image
+		player.Draw(screen, px, py); // Draw player
 
-		if (GetAsyncKeyState(VK_LEFT)) px--;
-		if (GetAsyncKeyState(VK_RIGHT)) px++;
-		if (GetAsyncKeyState(VK_UP)) py--;
-		if (GetAsyncKeyState(VK_DOWN)) py++;
+		if (GetAsyncKeyState(VK_LEFT)) px--, player.SetFrame(3);
+		if (GetAsyncKeyState(VK_RIGHT)) px++, player.SetFrame(1);
+		if (GetAsyncKeyState(VK_UP)) py--, player.SetFrame(0);
+		if (GetAsyncKeyState(VK_DOWN)) py++, player.SetFrame(2);
 	}
 };
