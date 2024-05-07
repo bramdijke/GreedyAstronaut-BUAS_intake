@@ -3,6 +3,7 @@
 #include <cstdio> //printf
 #include <windows.h>
 #include "template.h"
+#include <SDL_mouse.h>
 #define WIN32_LEAN_AND_MEAN
 
 
@@ -12,6 +13,7 @@ namespace Tmpl8
 	int px = screenX / 2 - 18, py = screenY / 2 - 18; // Place player in center of screen
 	
 	Sprite player(new Surface("assets/spaceship.tga"), 4); // Player sprite
+	Surface menuBackground("assets/menu_background.png"); // Space background sprite
 	Surface spaceBackground("assets/space_background.png"); // Space background sprite
 
 	Sprite titleLogo(new Surface("assets/gameTitle.png"), 1); // Title logo sprite
@@ -42,14 +44,21 @@ namespace Tmpl8
 
 	}
 
-	void Game::MenuScreen(float deltaTime) // Runs when in menu screen
+	void Game::MenuScreen(float deltaTime)
+	{
+		menuBackground.CopyTo(screen, 0, 0); // Render background image
+		titleLogo.Draw(screen, 90, 100); // Render title image
+		playSprite.Draw(screen, 100, 250); // Render play button image
+		quitSprite.Draw(screen, 100, 300); // Render quit button image
+
+
+	}
+
+	void Game::GameScreen(float deltaTime) // Runs when in game screen
 	{
 		screen->Clear(0);
-		spaceBackground.CopyTo(screen, 0, 0); // Render background image
+		spaceBackground.CopyTo(screen, 0, 0);
 		player.Draw(screen, px, py); // Draw player
-
-		screen->Line(mousex, 0, mousex, 511, 0xff0000); // for testing
-		screen->Line(0, mousey, 799, mousey, 0xff0000); // for testing
 
 		if (GetAsyncKeyState(VK_LEFT)) px--, player.SetFrame(3);
 		if (GetAsyncKeyState(VK_RIGHT)) px++, player.SetFrame(1);
@@ -58,13 +67,26 @@ namespace Tmpl8
 
 	}
 
-	void Game::GameScreen(float deltaTime) // Runs when in game screen
-	{
-
-	}
-
 	void Game::ScoreScreen(float deltaTime) // Runs when in score screen
 	{
 
 	}
+
+	void Game::MouseDown(int button) {
+		if (button == SDL_BUTTON_LEFT && state == GameState::menuState) {
+
+			// If-statement to change to gameState. If mouse coordinates are within coordinates of plau button, the state changes to gameState
+			if (mousex > 100 && mousex < 100 + playSprite.GetWidth() &&
+				mousey > 250 && mousey < 250 + playSprite.GetHeight()) {
+				state = GameState::gameState;
+			}
+
+			// If-statement to close program. If mouse coordinates are within coordinates of quit button, the program closes
+			if (mousex > 100 && mousex < 100 + quitSprite.GetWidth() &&
+				mousey > 300 && mousey < 300 + quitSprite.GetHeight()) {
+				exit(0);
+			}
+		}
+	}
+	
 };
