@@ -30,6 +30,8 @@ private:
 	Surface* screen;
 	int mousex, mousey;
 	GameState state = GameState::menuState;
+
+	float time = 0.0f;
 };
 
 

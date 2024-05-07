@@ -1,9 +1,12 @@
 #include "game.h"
 #include "surface.h"
 #include <cstdio> //printf
+#include <cstdlib>
 #include <windows.h>
 #include "template.h"
 #include <SDL_mouse.h>
+#include "gem.h"
+#include "template.h"
 #define WIN32_LEAN_AND_MEAN
 
 
@@ -11,6 +14,7 @@ namespace Tmpl8
 {
 	int screenX = ScreenWidth, screenY = ScreenHeight; // Get screen sizes
 	int px = screenX / 2 - 18, py = screenY / 2 - 18; // Place player in center of screen
+	int gemX[10], gemY[10]; // 10 values for coordinates of gems
 	
 	Sprite player(new Surface("assets/spaceship.tga"), 4); // Player sprite
 	Surface menuBackground("assets/menu_background.png"); // Space background sprite
@@ -20,8 +24,13 @@ namespace Tmpl8
 	Sprite playSprite(new Surface("assets/playButton.png"), 1); // Play button sprite
 	Sprite quitSprite(new Surface("assets/quitButton.png"), 1); // Quit button sprite
 
+	Sprite gemSprite(new Surface("assets/gem.png"), 1); // Gem sprite
+
 	void Game::Init() //Runs when program initializes
 	{
+		// 10 random locations for gems
+		for (int i = 0; i < 10; i++)
+			gemX[i] = IRand(800), gemY[i] = IRand(512);
 	}
 	void Game::Shutdown() // Runs when programs shuts down
 	{
@@ -50,20 +59,27 @@ namespace Tmpl8
 		titleLogo.Draw(screen, 90, 100); // Render title image
 		playSprite.Draw(screen, 100, 250); // Render play button image
 		quitSprite.Draw(screen, 100, 300); // Render quit button image
-
-
 	}
 
 	void Game::GameScreen(float deltaTime) // Runs when in game screen
 	{
 		screen->Clear(0);
+
+		deltaTime = deltaTime / 1000; 
+		time = time + deltaTime;
+
 		spaceBackground.CopyTo(screen, 0, 0);
+
+		for (int i = 0; i < 10; i++) {
+			gemSprite.Draw(screen, gemX[i], gemY[i]);
+		}
+
 		player.Draw(screen, px, py); // Draw player
 
-		if (GetAsyncKeyState(VK_LEFT)) px--, player.SetFrame(3);
-		if (GetAsyncKeyState(VK_RIGHT)) px++, player.SetFrame(1);
-		if (GetAsyncKeyState(VK_UP)) py--, player.SetFrame(0);
-		if (GetAsyncKeyState(VK_DOWN)) py++, player.SetFrame(2);
+		if (GetAsyncKeyState(VK_LEFT)) px -= 4, player.SetFrame(3);
+		if (GetAsyncKeyState(VK_RIGHT)) px += 4, player.SetFrame(1);
+		if (GetAsyncKeyState(VK_UP)) py -= 4, player.SetFrame(0);
+		if (GetAsyncKeyState(VK_DOWN)) py += 4, player.SetFrame(2);
 
 	}
 

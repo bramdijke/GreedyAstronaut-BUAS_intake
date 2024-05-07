@@ -225,14 +225,18 @@
   <ItemGroup>
     <ClCompile Include="button.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="gem.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="score.cpp" />
     <ClCompile Include="surface.cpp" />
     <ClCompile Include="template.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="button.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="gem.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="score.h" />
     <ClInclude Include="surface.h" />
     <ClInclude Include="template.h" />
   </ItemGroup>
