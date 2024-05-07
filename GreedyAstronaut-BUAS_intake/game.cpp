@@ -38,7 +38,7 @@ namespace Tmpl8
 		case GameState::scoreState:
 			ScoreScreen(deltaTime);
 			break;
-	}
+		}
 
 	}
 
