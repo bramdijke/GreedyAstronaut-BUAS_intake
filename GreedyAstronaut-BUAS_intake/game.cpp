@@ -26,11 +26,11 @@ namespace Tmpl8
 
 	Sprite gemSprite(new Surface("assets/gem.png"), 1); // Gem sprite
 
+	 Gem gem;
+
 	void Game::Init() //Runs when program initializes
 	{
-		// 10 random locations for gems
-		for (int i = 0; i < 10; i++)
-			gemX[i] = IRand(800), gemY[i] = IRand(512);
+		gem.Init();
 	}
 	void Game::Shutdown() // Runs when programs shuts down
 	{
@@ -65,13 +65,17 @@ namespace Tmpl8
 	{
 		screen->Clear(0);
 
-		deltaTime = deltaTime / 1000; 
+		deltaTime = deltaTime / 1000;
 		time = time + deltaTime;
 
 		spaceBackground.CopyTo(screen, 0, 0);
 
-		for (int i = 0; i < 10; i++) {
-			gemSprite.Draw(screen, gemX[i], gemY[i]);
+		for (int i = 0; i < 5; i++)
+		{
+			if (!gem.CheckCollision(px, py, player.GetWidth(), player.GetHeight()))
+			{
+				gem.Draw(screen, gem.x[i], gem.y[i]);
+			}
 		}
 
 		player.Draw(screen, px, py); // Draw player
@@ -80,7 +84,6 @@ namespace Tmpl8
 		if (GetAsyncKeyState(VK_RIGHT)) px += 4, player.SetFrame(1);
 		if (GetAsyncKeyState(VK_UP)) py -= 4, player.SetFrame(0);
 		if (GetAsyncKeyState(VK_DOWN)) py += 4, player.SetFrame(2);
-
 	}
 
 	void Game::ScoreScreen(float deltaTime) // Runs when in score screen

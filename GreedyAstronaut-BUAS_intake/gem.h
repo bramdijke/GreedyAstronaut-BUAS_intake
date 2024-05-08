@@ -2,17 +2,21 @@
 
 #include "surface.h"
 
-namespace Tmpl8 {
+namespace Tmpl8
+{
     class Gem
     {
     public:
-        Gem(Surface* sprite);
-        void Draw(Surface* screen);
-        void SetPosition(int x, int y);
+        Gem();
+
+        void Init();
+        void Draw(Tmpl8::Surface* screen, int x, int y);
+        bool CheckCollision(int x, int y, int playerWidth, int playerHeight);
+        void Respawn(int index);
+        int x[5], y[5];
+
 
     private:
-        Surface* m_Sprite;
-        int m_X;
-        int m_Y;
+        Sprite gemSprite;
     };
 }
