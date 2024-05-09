@@ -5,6 +5,7 @@ namespace Tmpl8
 {
     Gem::Gem() : gemSprite(new Surface("assets/gem.png"), 1) {}
 
+    // Come up with 5 random locations for gems
     void Gem::Init()
     {
         for (int i = 0; i < 5; i++)
@@ -14,11 +15,13 @@ namespace Tmpl8
         }
     }
 
+    // Draw gem sprite
     void Gem::Draw(Tmpl8::Surface* screen, int x, int y)
     {
         gemSprite.Draw(screen, x, y);
     }
 
+    // Check the collision of gems and player
     bool Gem::CheckCollision(int x, int y, int playerWidth, int playerHeight)
     {
         for (int i = 0; i < 5; i++)
@@ -35,6 +38,7 @@ namespace Tmpl8
         return false;
     }
 
+    // If gem is interacted with, a new one respawns
     void Gem::Respawn(int index)
     {
         for (int j = index; j < 4; j++)
