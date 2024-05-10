@@ -1,4 +1,6 @@
 #pragma once
+#include "surface.h"
+#include "score.h"
 
 namespace Tmpl8 {
 
@@ -12,6 +14,7 @@ class Game
 
 {
 public:
+	Game() : score() {}
 	void SetTarget( Surface* surface ) { screen = surface; }
 	void Init();
 	void Shutdown();
@@ -32,6 +35,7 @@ private:
 	GameState state = GameState::menuState;
 
 	float time = 0.0f;
+	Score score;
 };
 
 

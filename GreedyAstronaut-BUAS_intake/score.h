@@ -3,6 +3,10 @@
 
 class Score {
 public:
-	Score() {}
+    Score() { scoreValue = 0; }
+    void IncrementScore() { scoreValue++; }
+    int GetScore() { return scoreValue; }
 
+private:
+    int scoreValue;
 };

@@ -72,11 +72,17 @@ namespace Tmpl8
 
 		for (int i = 0; i < 5; i++)
 		{
-			if (!gem.CheckCollision(px, py, player.GetWidth(), player.GetHeight()))
+			if (!gem.CheckCollision(px, py, player.GetWidth(), player.GetHeight())) // Check if the player hasn't collided with the gem
 			{
-				gem.Draw(screen, gem.x[i], gem.y[i]);
+				gem.Draw(screen, gem.x[i], gem.y[i]); // If no collision, draw the gem at its position
+			}
+			else
+			{
+				score.IncrementScore(); // Increment score when collision occurs
 			}
 		}
+
+		printf("hitBottom: %i\n", score);
 
 		player.Draw(screen, px, py); // Draw player
 
