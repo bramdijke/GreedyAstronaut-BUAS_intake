@@ -82,7 +82,9 @@ namespace Tmpl8
 			}
 		}
 
-		printf("hitBottom: %i\n", score);
+		char scoreText[10]; // 9 digits at most
+		sprintf(scoreText, "Score: %d", score.GetScore());
+		screen->Print(scoreText, 10, 10, Pixel(255 << 16) + (255 << 8) + (255));
 
 		player.Draw(screen, px, py); // Draw player
 
