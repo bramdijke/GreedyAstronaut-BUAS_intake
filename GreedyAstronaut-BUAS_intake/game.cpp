@@ -88,10 +88,10 @@ namespace Tmpl8
 
 		player.Draw(screen, px, py); // Draw player
 
-		if (GetAsyncKeyState(VK_LEFT)) px -= 4, player.SetFrame(3);
-		if (GetAsyncKeyState(VK_RIGHT)) px += 4, player.SetFrame(1);
-		if (GetAsyncKeyState(VK_UP)) py -= 4, player.SetFrame(0);
-		if (GetAsyncKeyState(VK_DOWN)) py += 4, player.SetFrame(2);
+		if (GetAsyncKeyState(VK_LEFT) && px > 0) px -= 4, player.SetFrame(3);
+		if (GetAsyncKeyState(VK_RIGHT) && px < screenX - player.GetWidth()) px += 4, player.SetFrame(1);
+		if (GetAsyncKeyState(VK_UP) && py > 0) py -= 4, player.SetFrame(0);
+		if (GetAsyncKeyState(VK_DOWN) && py < screenY - player.GetHeight()) py += 4, player.SetFrame(2);
 	}
 
 	void Game::ScoreScreen(float deltaTime) // Runs when in score screen
