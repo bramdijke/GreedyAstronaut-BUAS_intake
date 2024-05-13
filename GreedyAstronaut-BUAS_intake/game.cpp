@@ -108,6 +108,7 @@ namespace Tmpl8
 
 		const float playerSpeed = 0.5f; // Constant movement speed player
 
+		// Movement and border logic. Also includes player speed
 		if (GetAsyncKeyState(VK_LEFT) && px > 0) px -= playerSpeed * deltaTime, player.SetFrame(3);
 		if (GetAsyncKeyState(VK_RIGHT) && px < screenX - player.GetWidth()) px += playerSpeed * deltaTime, player.SetFrame(1);
 		if (GetAsyncKeyState(VK_UP) && py > 0) py -= playerSpeed * deltaTime, player.SetFrame(0);

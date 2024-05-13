@@ -3,7 +3,7 @@
 
 namespace Tmpl8
 {
-    Gem::Gem() : gemSprite(new Surface("assets/gemblue.tga"), 11) {}
+    Gem::Gem() : gemSprite(new Surface("assets/gem.png"), 1) {}
 
     // Come up with 5 random locations for gems
     void Gem::Init()
@@ -13,8 +13,6 @@ namespace Tmpl8
             x[i] = IRand(800);
             y[i] = IRand(512);
         }
-
-        gemSprite.SetFrame(8);
     }
 
     // Draw gem sprite
