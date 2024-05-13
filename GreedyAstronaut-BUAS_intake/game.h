@@ -16,7 +16,7 @@ class Game
 
 {
 public:
-	Game() : score() {}
+	Game() : score(), highscore(0) {}
 	void SetTarget( Surface* surface ) { screen = surface; }
 	void Init();
 	void Shutdown();
@@ -35,8 +35,9 @@ private:
 	Surface* screen;
 	int mousex, mousey;
 	GameState state = GameState::menuState;
-
 	float time = 0.0f;
+	int highscore;
+		
 	Score score;
 	Gem gem;
 	Timer timer;

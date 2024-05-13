@@ -93,13 +93,15 @@ namespace Tmpl8
 		if (GetAsyncKeyState(VK_UP) && py > 0) py -= 4, player.SetFrame(0);
 		if (GetAsyncKeyState(VK_DOWN) && py < screenY - player.GetHeight()) py += 4, player.SetFrame(2);
 
-		char scoreText[15]; // 14 digits at most
-		sprintf(scoreText, "Score: %d", score.GetScore());
-		screen->Print(scoreText, 10, 10, Pixel(255 << 16) + (255 << 8) + (255));
-
+		// Print time left on screen
 		char timeText[15]; // 14 digits at most
 		sprintf(timeText, "Time: %ds", timer.GetDuration());
 		screen->Print(timeText, 620, 10, Pixel(255 << 16) + (255 << 8) + (255));
+
+		// Print score on screen
+		char scoreText[15]; // 14 digits at most
+		sprintf(scoreText, "Score: %d", score.GetScore());
+		screen->Print(scoreText, 10, 10, Pixel(255 << 16) + (255 << 8) + (255));
 
 		// If-statement to switch the state to scoreState when the timer has finished
 		if (timer.IsFinished()) 
@@ -111,22 +113,45 @@ namespace Tmpl8
 
 	void Game::ScoreScreen(float deltaTime) // Runs when in score screen
 	{
-		spaceBackground.CopyTo(screen, 0, 0);
+		screen->Clear(0);
+
+		// If-statement to check if the current score is higher than the current score
+		if (score.GetScore() > highscore) {
+			highscore = score.GetScore(); // Update highscore if necessary
+		}
+
+		// Print score on screen
+		char scoreText[15]; // 14 digits at most
+		sprintf(scoreText, "Score: %d", score.GetScore());
+		screen->Print(scoreText, 300, 200, Pixel(255 << 16) + (255 << 8) + (255));
+
+		// Print highscore on screen
+		char highscoreText[15]; // 14 digits at most
+		sprintf(highscoreText, "Highscore: %d", highscore);
+		screen->Print(highscoreText, 300, 240, Pixel(255 << 16) + (255 << 8) + (255));
 	}
 
 	void Game::MouseDown(int button) { // Runs when mouse is pressed down
-		if (button == SDL_BUTTON_LEFT && state == GameState::menuState) {
-
-			// If-statement to change to gameState. If mouse coordinates are within coordinates of plau button, the state changes to gameState
-			if (mousex > 100 && mousex < 100 + playSprite.GetWidth() &&
-				mousey > 250 && mousey < 250 + playSprite.GetHeight()) {
-				state = GameState::gameState;
+		if (state == GameState::menuState) {
+			// Check for button clicks only in the menu state
+			if (button == SDL_BUTTON_LEFT) {
+				// Check if the mouse coordinates are within the play button area
+				if (mousex > 100 && mousex < 100 + playSprite.GetWidth() &&
+					mousey > 250 && mousey < 250 + playSprite.GetHeight()) {
+					state = GameState::gameState; // Change to game state
+				}
+				// Check if the mouse coordinates are within the quit button area
+				else if (mousex > 100 && mousex < 100 + quitSprite.GetWidth() &&
+					mousey > 300 && mousey < 300 + quitSprite.GetHeight()) {
+					exit(0); // Quit the program
+				}
 			}
-
-			// If-statement to close program. If mouse coordinates are within coordinates of quit button, the program closes
-			if (mousex > 100 && mousex < 100 + quitSprite.GetWidth() &&
-				mousey > 300 && mousey < 300 + quitSprite.GetHeight()) {
-				exit(0);
+		}
+		else if (state == GameState::scoreState) {
+			// Check for mouse clicks during the score screen
+			if (button == SDL_BUTTON_LEFT) {
+				// Change state to menuState if clicked anywhere on the screen
+				state = GameState::menuState;
 			}
 		}
 	}
