@@ -6,6 +6,7 @@
 #include "template.h"
 #include <SDL_mouse.h>
 #include "template.h"
+#include <fstream>
 #define WIN32_LEAN_AND_MEAN
 
 
@@ -23,17 +24,29 @@ namespace Tmpl8
 	Sprite playSprite(new Surface("assets/playButton.png"), 1); // Play button sprite
 	Sprite quitSprite(new Surface("assets/quitButton.png"), 1); // Quit button sprite
 
-	Sprite gemSprite(new Surface("assets/gem.png"), 1); // Gem sprite
-
 	 bool timerStarted = false;
 
 	void Game::Init() //Runs when program initializes
 	{
 		gem.Init();
+
+		// Load highscore from file
+		std::ifstream highscoreFile("highscore.txt");
+		if (highscoreFile.is_open())
+		{
+			highscoreFile >> highscore;
+			highscoreFile.close();
+		}
 	}
 	void Game::Shutdown() // Runs when programs shuts down
 	{
-
+		// Save highscore to file
+		std::ofstream highscoreFile("highscore.txt");
+		if (highscoreFile.is_open())
+		{
+			highscoreFile << highscore;
+			highscoreFile.close();
+		}
 	}
 	void Game::Tick(float deltaTime) // Runs every tick
 	{
@@ -64,10 +77,15 @@ namespace Tmpl8
 	{
 		screen->Clear(0);
 
-		if (!timerStarted)
-		{
-			timer.Start();
+		if (!timerStarted || timer.IsFinished()) { // Reset timer if not started or finished
+			timer.Reset(); // Reset timer when starting the game
 			timerStarted = true;
+			score.Reset(); // Reset score when starting the game
+
+			// Resets the player to correct position and orientation
+			px = screenX / 2 - player.GetWidth() / 2; 
+			py = screenY / 2 - player.GetHeight() / 2;
+			player.SetFrame(0);
 		}
 
 		timer.Update();
@@ -88,10 +106,12 @@ namespace Tmpl8
 
 		player.Draw(screen, px, py); // Draw player
 
-		if (GetAsyncKeyState(VK_LEFT) && px > 0) px -= 4, player.SetFrame(3);
-		if (GetAsyncKeyState(VK_RIGHT) && px < screenX - player.GetWidth()) px += 4, player.SetFrame(1);
-		if (GetAsyncKeyState(VK_UP) && py > 0) py -= 4, player.SetFrame(0);
-		if (GetAsyncKeyState(VK_DOWN) && py < screenY - player.GetHeight()) py += 4, player.SetFrame(2);
+		const float playerSpeed = 0.5f; // Constant movement speed player
+
+		if (GetAsyncKeyState(VK_LEFT) && px > 0) px -= playerSpeed * deltaTime, player.SetFrame(3);
+		if (GetAsyncKeyState(VK_RIGHT) && px < screenX - player.GetWidth()) px += playerSpeed * deltaTime, player.SetFrame(1);
+		if (GetAsyncKeyState(VK_UP) && py > 0) py -= playerSpeed * deltaTime, player.SetFrame(0);
+		if (GetAsyncKeyState(VK_DOWN) && py < screenY - player.GetHeight()) py += playerSpeed * deltaTime, player.SetFrame(2);
 
 		// Print time left on screen
 		char timeText[15]; // 14 digits at most

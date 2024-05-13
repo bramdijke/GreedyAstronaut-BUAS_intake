@@ -12,6 +12,7 @@
     <ClCompile Include="button.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="gem.cpp" />
+    <ClCompile Include="timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
@@ -25,6 +26,7 @@
     <ClInclude Include="button.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="gem.h" />
+    <ClInclude Include="timer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="template code">
@@ -35,5 +37,6 @@
     <Text Include="_readme.txt">
       <Filter>template code</Filter>
     </Text>
+    <Text Include="highscore.txt" />
   </ItemGroup>
 </Project>

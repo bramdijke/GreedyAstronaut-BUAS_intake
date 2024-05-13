@@ -10,6 +10,7 @@ public:
     void Update(); // Timer update
     bool IsFinished() const; // Is timer finished?
     int GetDuration() const; // Remaining durantion of timer
+    void Reset();
 
 private:
     const int startingDuration;

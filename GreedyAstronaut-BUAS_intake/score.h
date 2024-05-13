@@ -6,6 +6,7 @@ public:
     Score() { scoreValue = 0; }
     void IncrementScore() { scoreValue++; }
     int GetScore() { return scoreValue; }
+    void Reset();
 
 private:
     int scoreValue;
