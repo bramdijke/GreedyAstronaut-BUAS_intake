@@ -44,10 +44,6 @@ namespace Tmpl8
 			break;
 		case GameState::gameState: // This is the state of the game screen
 			GameScreen(deltaTime);
-			if (!timerStarted) { // Checks if timer has started. If not, it starts the timer.
-				timer.Start(); 
-				timerStarted = true;  // Sets timerStarted to true so it won't keep resetting timer to 60 seconds
-			}
 			break;
 		case GameState::scoreState: // This is the state of the score screen
 			ScoreScreen(deltaTime);
@@ -67,6 +63,12 @@ namespace Tmpl8
 	void Game::GameScreen(float deltaTime) // Runs when in game screen
 	{
 		screen->Clear(0);
+
+		if (!timerStarted)
+		{
+			timer.Start();
+			timerStarted = true;
+		}
 
 		timer.Update();
 
@@ -98,6 +100,13 @@ namespace Tmpl8
 		char timeText[15]; // 14 digits at most
 		sprintf(timeText, "Time: %ds", timer.GetDuration());
 		screen->Print(timeText, 620, 10, Pixel(255 << 16) + (255 << 8) + (255));
+
+		// If-statement to switch the state to scoreState when the timer has finished
+		if (timer.IsFinished()) 
+		{
+			state = GameState::scoreState;
+		}
+
 	}
 
 	void Game::ScoreScreen(float deltaTime) // Runs when in score screen
