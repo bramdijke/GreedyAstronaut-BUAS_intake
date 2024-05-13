@@ -5,7 +5,6 @@
 #include <windows.h>
 #include "template.h"
 #include <SDL_mouse.h>
-#include "gem.h"
 #include "template.h"
 #define WIN32_LEAN_AND_MEAN
 
@@ -26,7 +25,7 @@ namespace Tmpl8
 
 	Sprite gemSprite(new Surface("assets/gem.png"), 1); // Gem sprite
 
-	 Gem gem;
+	 bool timerStarted = false;
 
 	void Game::Init() //Runs when program initializes
 	{
@@ -40,20 +39,24 @@ namespace Tmpl8
 	{
 		switch (state)
 		{
-		case GameState::menuState:
+		case GameState::menuState: // This is the state of the menu screen
 			MenuScreen(deltaTime);
 			break;
-		case GameState::gameState:
+		case GameState::gameState: // This is the state of the game screen
 			GameScreen(deltaTime);
+			if (!timerStarted) { // Checks if timer has started. If not, it starts the timer.
+				timer.Start(); 
+				timerStarted = true;  // Sets timerStarted to true so it won't keep resetting timer to 60 seconds
+			}
 			break;
-		case GameState::scoreState:
+		case GameState::scoreState: // This is the state of the score screen
 			ScoreScreen(deltaTime);
 			break;
 		}
 
 	}
 
-	void Game::MenuScreen(float deltaTime)
+	void Game::MenuScreen(float deltaTime) // Runs when in menu screen
 	{
 		menuBackground.CopyTo(screen, 0, 0); // Render background image
 		titleLogo.Draw(screen, 90, 100); // Render title image
@@ -65,8 +68,7 @@ namespace Tmpl8
 	{
 		screen->Clear(0);
 
-		deltaTime = deltaTime / 1000;
-		time = time + deltaTime;
+		timer.Update();
 
 		spaceBackground.CopyTo(screen, 0, 0);
 
@@ -82,24 +84,28 @@ namespace Tmpl8
 			}
 		}
 
-		char scoreText[10]; // 9 digits at most
-		sprintf(scoreText, "Score: %d", score.GetScore());
-		screen->Print(scoreText, 10, 10, Pixel(255 << 16) + (255 << 8) + (255));
-
 		player.Draw(screen, px, py); // Draw player
 
 		if (GetAsyncKeyState(VK_LEFT) && px > 0) px -= 4, player.SetFrame(3);
 		if (GetAsyncKeyState(VK_RIGHT) && px < screenX - player.GetWidth()) px += 4, player.SetFrame(1);
 		if (GetAsyncKeyState(VK_UP) && py > 0) py -= 4, player.SetFrame(0);
 		if (GetAsyncKeyState(VK_DOWN) && py < screenY - player.GetHeight()) py += 4, player.SetFrame(2);
+
+		char scoreText[15]; // 14 digits at most
+		sprintf(scoreText, "Score: %d", score.GetScore());
+		screen->Print(scoreText, 10, 10, Pixel(255 << 16) + (255 << 8) + (255));
+
+		char timeText[15]; // 14 digits at most
+		sprintf(timeText, "Time: %ds", timer.GetDuration());
+		screen->Print(timeText, 620, 10, Pixel(255 << 16) + (255 << 8) + (255));
 	}
 
 	void Game::ScoreScreen(float deltaTime) // Runs when in score screen
 	{
-
+		spaceBackground.CopyTo(screen, 0, 0);
 	}
 
-	void Game::MouseDown(int button) {
+	void Game::MouseDown(int button) { // Runs when mouse is pressed down
 		if (button == SDL_BUTTON_LEFT && state == GameState::menuState) {
 
 			// If-statement to change to gameState. If mouse coordinates are within coordinates of plau button, the state changes to gameState

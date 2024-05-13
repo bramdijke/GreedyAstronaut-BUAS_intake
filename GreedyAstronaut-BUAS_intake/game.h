@@ -1,6 +1,8 @@
 #pragma once
 #include "surface.h"
 #include "score.h"
+#include "gem.h"
+#include "timer.h"
 
 namespace Tmpl8 {
 
@@ -36,6 +38,8 @@ private:
 
 	float time = 0.0f;
 	Score score;
+	Gem gem;
+	Timer timer;
 };
 
 
