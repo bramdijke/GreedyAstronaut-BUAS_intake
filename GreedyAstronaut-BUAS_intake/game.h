@@ -9,6 +9,7 @@ namespace Tmpl8 {
 class Surface;
 enum class GameState {
 	menuState,
+	howtoState,
 	gameState,
 	scoreState,
 };
@@ -28,6 +29,7 @@ public:
 	void KeyDown( int key ) { /* implement if you want to handle keys */ }
 
 	void MenuScreen(float deltaTime); // function for menu screen
+	void HowtoScreen(float deltaTime); // function for how to play screen
 	void GameScreen(float deltaTime); // function for game screen
 	void ScoreScreen(float deltaTime); // function for score screen
 

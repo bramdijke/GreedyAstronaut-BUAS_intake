@@ -17,11 +17,13 @@ namespace Tmpl8
 	int gemX[10], gemY[10]; // 10 values for coordinates of gems
 	
 	Sprite player(new Surface("assets/spaceship.tga"), 4); // Player sprite
-	Surface menuBackground("assets/menu_background.png"); // Space background sprite
+	Surface menuBackground("assets/menu_background.png"); // Menu background sprite
+	Surface howtoBackground("assets/howtoplay_background.png"); // How to play background sprite
 	Surface spaceBackground("assets/space_background.png"); // Space background sprite
 
 	Sprite titleLogo(new Surface("assets/gameTitle.png"), 1); // Title logo sprite
 	Sprite playSprite(new Surface("assets/playButton.png"), 1); // Play button sprite
+	Sprite howtoSprite(new Surface("assets/howtoplayButton.png"), 1); // How to play button sprite
 	Sprite quitSprite(new Surface("assets/quitButton.png"), 1); // Quit button sprite
 
 	 bool timerStarted = false;
@@ -60,6 +62,9 @@ namespace Tmpl8
 		case GameState::menuState: // This is the state of the menu screen
 			MenuScreen(deltaTime);
 			break;
+		case GameState::howtoState: // This is the state of the menu screen
+			HowtoScreen(deltaTime);
+			break;
 		case GameState::gameState: // This is the state of the game screen
 			GameScreen(deltaTime);
 			break;
@@ -76,7 +81,13 @@ namespace Tmpl8
 		menuBackground.CopyTo(screen, 0, 0); // Render background image
 		titleLogo.Draw(screen, 90, 100); // Render title image
 		playSprite.Draw(screen, 100, 250); // Render play button image
-		quitSprite.Draw(screen, 100, 300); // Render quit button image
+		howtoSprite.Draw(screen, 100, 300); // Render play button image
+		quitSprite.Draw(screen, 100, 350); // Render quit button image
+	}
+
+	void Game::HowtoScreen(float deltaTime)
+	{
+		howtoBackground.CopyTo(screen, 0, 0); // Render background image
 	}
 
 	// Runs when in game screen
@@ -171,20 +182,36 @@ namespace Tmpl8
 					mousey > 250 && mousey < 250 + playSprite.GetHeight()) {
 					state = GameState::gameState; // Change to game state
 				}
+
+				// Check if the mouse coordinates are within the how to play button area
+				else if (mousex > 100 && mousex < 100 + howtoSprite.GetWidth() &&
+					mousey > 300 && mousey < 300 + howtoSprite.GetHeight()) {
+					state = GameState::howtoState; // Change to how to play state
+				}
+
 				// Check if the mouse coordinates are within the quit button area
 				else if (mousex > 100 && mousex < 100 + quitSprite.GetWidth() &&
-					mousey > 300 && mousey < 300 + quitSprite.GetHeight()) {
+					mousey > 350 && mousey < 350 + quitSprite.GetHeight()) {
 					exit(0); // Quit the program
 				}
 			}
 		}
+
+		else if (state == GameState::howtoState) {
+			// Check for mouse clicks during the score screen
+			if (button == SDL_BUTTON_LEFT) {
+				// Change state to menuState if clicked anywhere on the screen
+				state = GameState::menuState;
+			}
+		}
+
 		else if (state == GameState::scoreState) {
 			// Check for mouse clicks during the score screen
 			if (button == SDL_BUTTON_LEFT) {
 				// Change state to menuState if clicked anywhere on the screen
 				state = GameState::menuState;
 			}
-		
+		}
 	}
 	
 };
