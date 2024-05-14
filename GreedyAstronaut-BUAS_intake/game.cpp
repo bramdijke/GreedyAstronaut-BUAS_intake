@@ -198,7 +198,7 @@ namespace Tmpl8
 		}
 
 		else if (state == GameState::howtoState) {
-			// Check for mouse clicks during the score screen
+			// Check for mouse clicks during the how to play screen
 			if (button == SDL_BUTTON_LEFT) {
 				// Change state to menuState if clicked anywhere on the screen
 				state = GameState::menuState;
