@@ -8,7 +8,6 @@
     <ClCompile Include="template.cpp">
       <Filter>template code</Filter>
     </ClCompile>
-    <ClCompile Include="player.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="gem.cpp" />
     <ClCompile Include="timer.cpp" />
@@ -21,7 +20,6 @@
     <ClInclude Include="template.h">
       <Filter>template code</Filter>
     </ClInclude>
-    <ClInclude Include="player.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="gem.h" />
     <ClInclude Include="timer.h" />
@@ -32,9 +30,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="_readme.txt">
-      <Filter>template code</Filter>
-    </Text>
     <Text Include="highscore.txt" />
+    <Text Include="readme.txt" />
   </ItemGroup>
 </Project>
