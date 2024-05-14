@@ -223,7 +223,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="button.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gem.cpp" />
     <ClCompile Include="player.cpp" />
@@ -233,7 +232,6 @@
     <ClCompile Include="timer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="button.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gem.h" />
     <ClInclude Include="player.h" />

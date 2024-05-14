@@ -9,7 +9,6 @@
       <Filter>template code</Filter>
     </ClCompile>
     <ClCompile Include="player.cpp" />
-    <ClCompile Include="button.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="gem.cpp" />
     <ClCompile Include="timer.cpp" />
@@ -23,7 +22,6 @@
       <Filter>template code</Filter>
     </ClInclude>
     <ClInclude Include="player.h" />
-    <ClInclude Include="button.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="gem.h" />
     <ClInclude Include="timer.h" />

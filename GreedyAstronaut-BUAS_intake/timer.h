@@ -2,18 +2,22 @@
 
 #include <chrono>
 
-class Timer {
-public:
-    Timer();
+namespace Tmpl8
+{
 
-    void Start(); // Timer start
-    void Update(); // Timer update
-    bool IsFinished() const; // Is timer finished?
-    int GetDuration() const; // Remaining durantion of timer
-    void Reset();
+    class Timer {
+    public:
+        Timer();
 
-private:
-    const int startingDuration;
-    std::chrono::steady_clock::time_point startTime;
-    int duration;
-};
+        void Start(); // Timer start
+        void Update(); // Timer update
+        bool IsFinished() const; // Is timer finished?
+        int GetDuration() const; // Remaining durantion of timer
+        void Reset();
+
+    private:
+        const int startingDuration;
+        std::chrono::steady_clock::time_point startTime;
+        int duration;
+    };
+}

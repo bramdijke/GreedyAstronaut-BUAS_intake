@@ -26,7 +26,8 @@ namespace Tmpl8
 
 	 bool timerStarted = false;
 
-	void Game::Init() //Runs when program initializes
+	//Runs when program initializes
+	void Game::Init()
 	{
 		gem.Init();
 
@@ -38,7 +39,9 @@ namespace Tmpl8
 			highscoreFile.close();
 		}
 	}
-	void Game::Shutdown() // Runs when programs shuts down
+
+	// Runs when programs shuts down
+	void Game::Shutdown()
 	{
 		// Save highscore to file
 		std::ofstream highscoreFile("highscore.txt");
@@ -48,7 +51,9 @@ namespace Tmpl8
 			highscoreFile.close();
 		}
 	}
-	void Game::Tick(float deltaTime) // Runs every tick
+
+	// Runs every tick
+	void Game::Tick(float deltaTime)
 	{
 		switch (state)
 		{
@@ -65,7 +70,8 @@ namespace Tmpl8
 
 	}
 
-	void Game::MenuScreen(float deltaTime) // Runs when in menu screen
+	// Runs when in menu screen
+	void Game::MenuScreen(float deltaTime)
 	{
 		menuBackground.CopyTo(screen, 0, 0); // Render background image
 		titleLogo.Draw(screen, 90, 100); // Render title image
@@ -73,7 +79,8 @@ namespace Tmpl8
 		quitSprite.Draw(screen, 100, 300); // Render quit button image
 	}
 
-	void Game::GameScreen(float deltaTime) // Runs when in game screen
+	// Runs when in game screen
+	void Game::GameScreen(float deltaTime) 
 	{
 		screen->Clear(0);
 
@@ -132,7 +139,8 @@ namespace Tmpl8
 
 	}
 
-	void Game::ScoreScreen(float deltaTime) // Runs when in score screen
+	// Runs when in score screen
+	void Game::ScoreScreen(float deltaTime) 
 	{
 		screen->Clear(0);
 
@@ -152,7 +160,9 @@ namespace Tmpl8
 		screen->Print(highscoreText, 300, 240, Pixel(255 << 16) + (255 << 8) + (255));
 	}
 
-	void Game::MouseDown(int button) { // Runs when mouse is pressed down
+	// Runs when mouse is pressed down
+	void Game::MouseDown(int button) 
+	{
 		if (state == GameState::menuState) {
 			// Check for button clicks only in the menu state
 			if (button == SDL_BUTTON_LEFT) {
@@ -174,7 +184,7 @@ namespace Tmpl8
 				// Change state to menuState if clicked anywhere on the screen
 				state = GameState::menuState;
 			}
-		}
+		
 	}
 	
 };

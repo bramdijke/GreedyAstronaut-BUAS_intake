@@ -1,5 +1,8 @@
 #include "score.h"
 
-void Score::Reset() {
-    scoreValue = 0;
+namespace Tmpl8
+{
+    void Score::Reset() {
+        scoreValue = 0;
+    }
 }
