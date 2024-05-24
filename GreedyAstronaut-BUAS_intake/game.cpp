@@ -7,6 +7,9 @@
 #include <SDL_mouse.h>
 #include "template.h"
 #include <fstream>
+#include <windows.h> // Include the Windows header
+#include <mmsystem.h> // Include the Multimedia API header
+#pragma comment(lib, "winmm.lib") // Link with the winmm.lib library
 #define WIN32_LEAN_AND_MEAN
 
 
@@ -119,6 +122,8 @@ namespace Tmpl8
 			else
 			{
 				score.IncrementScore(); // Increment score when collision occurs
+				PlaySound(TEXT("assets/gempickup.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
 			}
 		}
 
