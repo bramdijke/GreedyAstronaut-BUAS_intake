@@ -185,18 +185,21 @@ namespace Tmpl8
 				// Check if the mouse coordinates are within the play button area
 				if (mousex > 100 && mousex < 100 + playSprite.GetWidth() &&
 					mousey > 250 && mousey < 250 + playSprite.GetHeight()) {
+					PlaySound(TEXT("assets/button.wav"), NULL, SND_FILENAME | SND_ASYNC); // Play button sound
 					state = GameState::gameState; // Change to game state
 				}
 
 				// Check if the mouse coordinates are within the how to play button area
 				else if (mousex > 100 && mousex < 100 + howtoSprite.GetWidth() &&
 					mousey > 300 && mousey < 300 + howtoSprite.GetHeight()) {
+					PlaySound(TEXT("assets/button.wav"), NULL, SND_FILENAME | SND_ASYNC); // Play button sound
 					state = GameState::howtoState; // Change to how to play state
 				}
 
 				// Check if the mouse coordinates are within the quit button area
 				else if (mousex > 100 && mousex < 100 + quitSprite.GetWidth() &&
 					mousey > 350 && mousey < 350 + quitSprite.GetHeight()) {
+					PlaySound(TEXT("assets/button.wav"), NULL, SND_FILENAME | SND_ASYNC); // Play button sound
 					exit(0); // Quit the program
 				}
 			}
@@ -205,6 +208,7 @@ namespace Tmpl8
 		else if (state == GameState::howtoState) {
 			// Check for mouse clicks during the how to play screen
 			if (button == SDL_BUTTON_LEFT) {
+				PlaySound(TEXT("assets/button.wav"), NULL, SND_FILENAME | SND_ASYNC); // Play button sound
 				// Change state to menuState if clicked anywhere on the screen
 				state = GameState::menuState;
 			}
@@ -213,6 +217,7 @@ namespace Tmpl8
 		else if (state == GameState::scoreState) {
 			// Check for mouse clicks during the score screen
 			if (button == SDL_BUTTON_LEFT) {
+				PlaySound(TEXT("assets/button.wav"), NULL, SND_FILENAME | SND_ASYNC); // Play button sound
 				// Change state to menuState if clicked anywhere on the screen
 				state = GameState::menuState;
 			}
