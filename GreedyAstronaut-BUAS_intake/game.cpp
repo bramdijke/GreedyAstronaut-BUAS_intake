@@ -7,9 +7,9 @@
 #include <SDL_mouse.h>
 #include "template.h"
 #include <fstream>
-#include <windows.h> // Include the Windows header
-#include <mmsystem.h> // Include the Multimedia API header
-#pragma comment(lib, "winmm.lib") // Link with the winmm.lib library
+#include <windows.h> 
+#include <mmsystem.h> 
+#pragma comment(lib, "winmm.lib") 
 #define WIN32_LEAN_AND_MEAN
 
 
